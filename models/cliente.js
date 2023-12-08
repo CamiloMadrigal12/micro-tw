@@ -1,14 +1,14 @@
 const { Schema, model } = require('mongoose');
 
-const TipoEquipoSchema = Schema({
+const ClienteSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'Debe colocar un nombre']
     },
-    estado: {
-        type: Boolean,
-        default: true,
-        required: true
+    email: {
+        type: String,
+        required: [true, 'Email obligatorio'],
+        unique: [true, 'Email debe ser único']
     },
     fechaCreacion: {
         type: Date,
@@ -17,12 +17,7 @@ const TipoEquipoSchema = Schema({
     fechaActualizacion: {
         type: Date,
         default: new Date()
-    },
-    usuario: {
-        type: Schema.Types.ObjectId,
-        ref: 'Usuario',
-        required: true
     }
 });
 
-module.exports = model('TipoEquipo', TipoEquipoSchema);
+module.exports = model('Cliente', ClienteSchema);

@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  proyectos-micros:
+    container_name: proyectos-micros
+    image: proyectos-micros:v1
+    build:
+      context: .
+    ports:
+      - "4002"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    user: root
+    restart: always
+    networks:
+      - proyectos-app
+
+  proyectos-micros-2:
+    container_name: proyectos-micros-2
+    image: proyectos-micros:v1
+    ports:
+      - "4002"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    user: root
+    restart: always
+    networks:
+      - proyectos-app
+
+  loader-balancer:
+    container_name: loader-balancer
+    image: loader-balancer:v1
+    build:
+      context: ./loader-balance
+    ports:
+      - "4003:80"
+    networks:
+      - proyectos-app
+
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - proyectos-app
+
+networks:
+  proyectos-app:
+
+volumes:
+  jenkins_home:

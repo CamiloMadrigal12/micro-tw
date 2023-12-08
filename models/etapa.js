@@ -1,14 +1,9 @@
 const { Schema, model } = require('mongoose');
 
-const EstadoSchema = Schema({
+const EtapaSchema = Schema({
     nombre: {
         type: String,
-        required: [true, 'Debe colocar un nombre']
-    },
-    estado: {
-        type: Boolean,
-        default: true,
-        required: true
+        required: [true, 'Debe colocar un nombre'],
     },
     fechaCreacion: {
         type: Date,
@@ -17,7 +12,9 @@ const EstadoSchema = Schema({
     fechaActualizacion: {
         type: Date,
         default: new Date()
-    }
+    },
+    
+
 });
 
-module.exports = model('Estado', EstadoSchema);
+module.exports = model('Etapa', EtapaSchema);
